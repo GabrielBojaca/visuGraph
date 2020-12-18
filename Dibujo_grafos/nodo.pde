@@ -9,12 +9,16 @@ class Nodo {
     posY = _posY;
     name = _name;
   }
+  
+  Nodo(){
+    
+  }
 
   void display() {  //Metodo para mostrar el Nodo en pantalla
     push();
     fill(255);
     if (seleccion) {
-      strokeWeight(4);
+      strokeWeight(6);
     } else {
       strokeWeight(2);
     }
