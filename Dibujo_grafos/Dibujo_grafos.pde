@@ -1,6 +1,9 @@
 ArrayList<Nodo> nodos = new ArrayList<Nodo>();
 ArrayList<Arista> aristas = new ArrayList<Arista>();
 
+Console consola;
+
+
 int numeroNodoN = 0;
 String nombreNodoN = "";
 boolean agregar = true;
@@ -20,23 +23,20 @@ void setup() {
   background(255);
   textSize(width/60);
   frameRate(30);
+  consola = new Console(width*0.77,height*0.05,width*0.2,height*0.9,nodos,aristas);
   
 }
 
 void draw() {
 
   background(200);
-  fill(255);
-  rect(width*0.77,height*0.05,width*0.2,height*0.9);
-  
+  fill(255);  
   fill(0);
   text(frameRate, 10, 20); //Mostramos los FPS en pantalla
   text("Modo agregar: " + agregar, 120, 20); //Mostramos los FPS en pantalla
   text("Modo conectar: " + conectar, 120, 60); //Mostramos los FPS en pantalla
 
-
   if (nodos.size()>0 && agregar) { //Si el arrayList no está vacio y si está en modo agregar
-
     Nodo nodoN = nodos.get(nodos.size() - 1);    //Usamos el ultimo nodo 
     nodoN.update(mouseX, mouseY);    
     nodoN.display();
@@ -44,13 +44,9 @@ void draw() {
 
   displayAristas(); //Mostrar todas las Aristas en pantalla
   displayNodos(); //Mostrar todos los Nodos en pantalla
-  
+  consola.refresh();
  // displayTodasDistancias();
-  /* 
-   else{
-   deseleccionarTodos();
-   }
-   */
+
 }
 
 void keyPressed() {
@@ -68,9 +64,9 @@ void keyPressed() {
 
 void mouseClicked() {
    //delay(100);
-  if (detectarSeleccion()!=-1) {
-    Nodo nodoN = nodos.get(detectarSeleccion());
-    nodoN.seleccion=!nodoN.seleccion;
+  if (detectarSeleccion()!=-1) { //Si hay seleccion
+    Nodo nodoN = nodos.get(detectarSeleccion()); //Apunta al objeto seleccionado
+    nodoN.seleccion=!nodoN.seleccion; //Cambia el atriburo de seleecion
   }
 
   if (!colision() && agregar) { //Si no detecta colision en el ultimo nodo, agrega uno nuevo
@@ -89,7 +85,7 @@ void mouseClicked() {
         indexSegundoSeleccionado = detectarSeleccion(); //Guardamos el index del segundo nodo
         numeroConexion++; //Pasamos al modo de seleccion nueva pareja
       }
-     // println("Primero seleccionado = " + indexPrimeroSeleccionado + " Segundo seleccionado = " + indexSegundoSeleccionado + " Numero seleccion = " + numeroConexion);
+      //println("Primero seleccionado = " + indexPrimeroSeleccionado + " Segundo seleccionado = " + indexSegundoSeleccionado + " Numero seleccion = " + numeroConexion);
       if (numeroConexion==2) {        
         numeroConexion=0;
         crearArista(nodos, indexPrimeroSeleccionado,indexSegundoSeleccionado);
@@ -97,6 +93,9 @@ void mouseClicked() {
       } //Nueva pareja
     }
   }
+  
+
+  
 }
 
 void displayNodos() { //Muestra todos los nodos menos el ultimo
@@ -183,6 +182,7 @@ void deseleccionarTodos() { //Vuelve todos los atributos "seleccion" false
   for (int i=0; i<nodos.size()-1; i++) {
     Nodo nodoCursor1 = nodos.get(i);
     nodoCursor1.seleccion = false;
+    println("Suka");
   }
 }
 
