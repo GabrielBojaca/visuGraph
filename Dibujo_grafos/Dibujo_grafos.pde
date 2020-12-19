@@ -45,7 +45,7 @@ void draw() {
   displayAristas(); //Mostrar todas las Aristas en pantalla
   displayNodos(); //Mostrar todos los Nodos en pantalla
   
-  displayTodasDistancias();
+ // displayTodasDistancias();
   /* 
    else{
    deseleccionarTodos();
