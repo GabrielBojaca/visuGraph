@@ -182,7 +182,6 @@ void deseleccionarTodos() { //Vuelve todos los atributos "seleccion" false
   for (int i=0; i<nodos.size()-1; i++) {
     Nodo nodoCursor1 = nodos.get(i);
     nodoCursor1.seleccion = false;
-    println("Suka");
   }
 }
 
