@@ -190,3 +190,20 @@ void crearArista(ArrayList<Nodo> arrayList ,int indexNodoPartida, int indexNodoL
   Nodo nodoLlegada = nodos.get(indexNodoLlegada);
   aristas.add(new Arista(nodoPartida, nodoLlegada));
 }
+
+void flecha(float x1, float y1, float x2, float y2) {
+  push(); //Tomamos todos los estados
+  float ancho = height* 0.04;  //Ancho respecto al tamaño de la pantalla
+  float alto  = width * 0.02;  //Alto respecto al tamaño de la pantalla
+  line(x1, y1, x2, y2);  //Dibujamos la linea de la flecha
+  pushMatrix();
+  translate(x2, y2);  //Trasladamos el origen a x2 y2
+  //float a = atan((y2-y1)/(x2-x1));
+  float a = atan2(y2-y1, x2-x1);  //obtenemos el angulo de rotacion
+  rotate(a);   //rotamos
+  fill(0);  
+  stroke(0);
+  triangle(0, 0, -ancho, -alto/2, -ancho, alto/2); //Dibujamos el triangulo
+  popMatrix();    //Retomamos la rotacion
+  pop(); //Retomamos los estados
+} 
