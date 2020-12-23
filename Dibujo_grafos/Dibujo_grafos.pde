@@ -2,11 +2,12 @@ ArrayList<Nodo> nodos = new ArrayList<Nodo>();
 ArrayList<Arista> aristas = new ArrayList<Arista>();
 
 Console consola;
-
+Button botonAgregar;
+Button botonConectar;
 
 int numeroNodoN = 0;
 String nombreNodoN = "";
-boolean agregar = true;
+boolean agregar = false;
 boolean conectar = false;
 
 int numeroConexion = 0;
@@ -24,7 +25,8 @@ void setup() {
   textSize(width/60);
   frameRate(30);
   consola = new Console(width*0.77,height*0.05,width*0.2,height*0.9,nodos,aristas);
-  
+  botonAgregar = new Button(39*width/100,(86.5)*height/100,width/6,height/12, "Agregar nodos",color(255));
+  botonConectar= new Button(58*width/100,(86.5)*height/100,width/6,height/12, "Agregar conexión",color(255));
 }
 
 void draw() {
@@ -45,6 +47,9 @@ void draw() {
   displayAristas(); //Mostrar todas las Aristas en pantalla
   displayNodos(); //Mostrar todos los Nodos en pantalla
   consola.refresh();
+  botonAgregar.display();
+  botonConectar.display();
+  
  // displayTodasDistancias();
 
 }
@@ -69,7 +74,7 @@ void mouseClicked() {
     nodoN.seleccion=!nodoN.seleccion; //Cambia el atriburo de seleecion
   }
 
-  if (!colision() && agregar) { //Si no detecta colision en el ultimo nodo, agrega uno nuevo
+  if (!colision() && agregar && !botonAgregar.pressed() && !botonConectar.pressed()) { //Si no detecta colision en el ultimo nodo, agrega uno nuevo, comprobamos los botones para que no agrege nodos debajo de los botones
     numeroNodoN++;
     nombreNodoN = str(char(numeroNodoN+64));
     nodos.add(new Nodo(mouseX, mouseY, nombreNodoN));
@@ -94,7 +99,31 @@ void mouseClicked() {
     }
   }
   
-
+  if(botonConectar.pressed()){
+    agregar = false;
+    conectar = !conectar; 
+  }
+  
+  if(botonAgregar.pressed()){
+    agregar = !agregar;
+    conectar = false;
+  }
+  
+  if(agregar){
+    botonAgregar.colorFondo= color(0,255,0);
+  } 
+  else {
+   botonAgregar.colorFondo = color(255);
+  }
+  
+  if(conectar){
+    botonConectar.colorFondo= color(0,255,0);
+  } 
+  else {
+   botonConectar.colorFondo = color(255);
+  }
+  
+  
   
 }
 
