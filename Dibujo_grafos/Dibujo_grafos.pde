@@ -34,9 +34,9 @@ void draw() {
   background(200);
   fill(255);  
   fill(0);
-  text(frameRate, 10, 20); //Mostramos los FPS en pantalla
-  text("Modo agregar: " + agregar, 120, 20); //Mostramos los FPS en pantalla
-  text("Modo conectar: " + conectar, 120, 60); //Mostramos los FPS en pantalla
+  //text(frameRate, 10, 20); //Mostramos los FPS en pantalla
+  //text("Modo agregar: " + agregar, 120, 20); //Mostramos los FPS en pantalla
+  //text("Modo conectar: " + conectar, 120, 60); //Mostramos los FPS en pantalla
 
   if (nodos.size()>0 && agregar) { //Si el arrayList no está vacio y si está en modo agregar
     Nodo nodoN = nodos.get(nodos.size() - 1);    //Usamos el ultimo nodo 
