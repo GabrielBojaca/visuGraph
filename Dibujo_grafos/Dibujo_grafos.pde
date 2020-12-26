@@ -1,14 +1,24 @@
 ArrayList<Nodo> nodos = new ArrayList<Nodo>();
 ArrayList<Arista> aristas = new ArrayList<Arista>();
 
+
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.datatransfer.*;
+import javax.swing.*;
+import java.io.*;
+
+
 Console consola;
 Button botonAgregar;
 Button botonConectar;
+Button botonMatriz;
 
 int numeroNodoN = 0;
 String nombreNodoN = "";
 boolean agregar = false;
 boolean conectar = false;
+String matriz = "";
 
 int numeroConexion = 0;
 int indexPrimeroSeleccionado, indexSegundoSeleccionado;
@@ -25,8 +35,10 @@ void setup() {
   textSize(width/60);
   frameRate(30);
   consola = new Console(width*0.77, height*0.05, width*0.2, height*0.9, nodos, aristas);
+  botonMatriz = new Button(20*width/100, (86.5)*height/100, width/6, height/12, "Matriz al Cipboard", color(255));
   botonAgregar = new Button(39*width/100, (86.5)*height/100, width/6, height/12, "Agregar nodos", color(255));
   botonConectar= new Button(58*width/100, (86.5)*height/100, width/6, height/12, "Agregar conexión", color(255));
+  
 }
 
 void draw() {
@@ -47,6 +59,7 @@ void draw() {
   displayAristas(); //Mostrar todas las Aristas en pantalla
   displayNodos(); //Mostrar todos los Nodos en pantalla
   consola.refresh();
+  botonMatriz.display();
   botonAgregar.display();
   botonConectar.display();
   obtenerMatrizAdyacencia();
@@ -97,10 +110,20 @@ void mouseClicked() {
       } //Nueva pareja
     }
   }
+  
+  if(botonMatriz.pressed()){
+    String selection = matriz;
+    StringSelection data = new StringSelection(selection);
+    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    clipboard.setContents(data, data);
+  }
+
 
   if (botonConectar.pressed()) {
     agregar = false;
     conectar = !conectar;
+
+  
   }
 
   if (botonAgregar.pressed()) {
@@ -119,6 +142,9 @@ void mouseClicked() {
   } else {
     botonConectar.colorFondo = color(255);
   }
+  
+  
+  
 }
 
 void displayNodos() { //Muestra todos los nodos menos el ultimo
@@ -232,23 +258,29 @@ void flecha(float x1, float y1, float x2, float y2, float offset) {
 } 
 
 void obtenerMatrizAdyacencia() {
-  int n = aristas.size();
+  int n = aristas.size(); //Obtenemos el tamaño del arreglo de aristas
   int numeroElementos = numeroNodoN -1; //Todos los nodos excepto el ultimo
-  int[][] adyacencias;
+  int[][] adyacencias; //Esta será la matriz de adyacencias
+  matriz = ""; 
   if (numeroElementos>0) {
     adyacencias = new int[numeroElementos][numeroElementos];  
     for (int i=0; i<=n-1; i++) {
       Arista aristaCursor = aristas.get(i);
-      adyacencias[int(aristaCursor.partida.name.charAt(0))-65][int(aristaCursor.llegada.name.charAt(0))-65] += 1;
+      adyacencias[int(aristaCursor.partida.name.charAt(0))-65][int(aristaCursor.llegada.name.charAt(0))-65] += 1; //Le restamos 65 porque está en mayuscula
     }
 
-    println("/////////////////////////Start");
+   // println("/////////////////////////Start");
     for (int i=0; i < adyacencias.length; i++) {
       for (int j=0; j < adyacencias[0].length; j++) {
-        print(" " + adyacencias[i][j] + " ");
+        if(j==0){
+        matriz += adyacencias[i][j] + " " ;
+        }
+        else{
+         matriz += " " + adyacencias[i][j] + " " ; 
+        }
       }
-      println();
-    }
-    println("/////////////////////////End");
+     matriz += "\n";
+    }    
+    //println(matriz);    
   }
 }
