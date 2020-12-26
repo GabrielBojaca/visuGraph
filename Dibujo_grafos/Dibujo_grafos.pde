@@ -24,9 +24,9 @@ void setup() {
   background(255);
   textSize(width/60);
   frameRate(30);
-  consola = new Console(width*0.77,height*0.05,width*0.2,height*0.9,nodos,aristas);
-  botonAgregar = new Button(39*width/100,(86.5)*height/100,width/6,height/12, "Agregar nodos",color(255));
-  botonConectar= new Button(58*width/100,(86.5)*height/100,width/6,height/12, "Agregar conexión",color(255));
+  consola = new Console(width*0.77, height*0.05, width*0.2, height*0.9, nodos, aristas);
+  botonAgregar = new Button(39*width/100, (86.5)*height/100, width/6, height/12, "Agregar nodos", color(255));
+  botonConectar= new Button(58*width/100, (86.5)*height/100, width/6, height/12, "Agregar conexión", color(255));
 }
 
 void draw() {
@@ -50,8 +50,7 @@ void draw() {
   botonAgregar.display();
   botonConectar.display();
   obtenerMatrizAdyacencia();
- // displayTodasDistancias();
-
+  // displayTodasDistancias();
 }
 
 void keyPressed() {
@@ -68,7 +67,7 @@ void keyPressed() {
 }
 
 void mouseClicked() {
-   //delay(100);
+  //delay(100);
   if (detectarSeleccion()!=-1) { //Si hay seleccion
     Nodo nodoN = nodos.get(detectarSeleccion()); //Apunta al objeto seleccionado
     nodoN.seleccion=!nodoN.seleccion; //Cambia el atriburo de seleecion
@@ -93,38 +92,33 @@ void mouseClicked() {
       //println("Primero seleccionado = " + indexPrimeroSeleccionado + " Segundo seleccionado = " + indexSegundoSeleccionado + " Numero seleccion = " + numeroConexion);
       if (numeroConexion==2) {        
         numeroConexion=0;
-        crearArista(nodos, indexPrimeroSeleccionado,indexSegundoSeleccionado);
+        crearArista(nodos, indexPrimeroSeleccionado, indexSegundoSeleccionado);
         deseleccionarTodos();
       } //Nueva pareja
     }
   }
-  
-  if(botonConectar.pressed()){
+
+  if (botonConectar.pressed()) {
     agregar = false;
-    conectar = !conectar; 
+    conectar = !conectar;
   }
-  
-  if(botonAgregar.pressed()){
+
+  if (botonAgregar.pressed()) {
     agregar = !agregar;
     conectar = false;
   }
-  
-  if(agregar){
-    botonAgregar.colorFondo= color(0,255,0);
-  } 
-  else {
-   botonAgregar.colorFondo = color(255);
+
+  if (agregar) {
+    botonAgregar.colorFondo= color(0, 255, 0);
+  } else {
+    botonAgregar.colorFondo = color(255);
   }
-  
-  if(conectar){
-    botonConectar.colorFondo= color(0,255,0);
-  } 
-  else {
-   botonConectar.colorFondo = color(255);
+
+  if (conectar) {
+    botonConectar.colorFondo= color(0, 255, 0);
+  } else {
+    botonConectar.colorFondo = color(255);
   }
-  
-  
-  
 }
 
 void displayNodos() { //Muestra todos los nodos menos el ultimo
@@ -214,7 +208,7 @@ void deseleccionarTodos() { //Vuelve todos los atributos "seleccion" false
   }
 }
 
-void crearArista(ArrayList<Nodo> arrayList ,int indexNodoPartida, int indexNodoLlegada){
+void crearArista(ArrayList<Nodo> arrayList, int indexNodoPartida, int indexNodoLlegada) {
   Nodo nodoPartida = nodos.get(indexNodoPartida);
   Nodo nodoLlegada = nodos.get(indexNodoLlegada);
   aristas.add(new Arista(nodoPartida, nodoLlegada));
@@ -237,30 +231,24 @@ void flecha(float x1, float y1, float x2, float y2, float offset) {
   pop(); //Retomamos los estados
 } 
 
-void obtenerMatrizAdyacencia(){
+void obtenerMatrizAdyacencia() {
   int n = aristas.size();
   int numeroElementos = numeroNodoN -1; //Todos los nodos excepto el ultimo
   int[][] adyacencias;
-  if(numeroElementos>0){
-  adyacencias = new int[numeroElementos][numeroElementos];  
-  for(int i=0; i<=n-1; i++){
-    Arista aristaCursor = aristas.get(i);
-   // println(int(aristaCursor.partida.name.charAt(0)) + " " + int(aristaCursor.llegada.name.charAt(0)));
-     adyacencias[int(aristaCursor.partida.name.charAt(0))-65][int(aristaCursor.llegada.name.charAt(0))-65] += 1;
-  //   adyacencias[int(aristaCursor.partida.name.charAt(0))-65][int(aristaCursor.llegada.name.charAt(0))-65] = adyacencias[int(aristaCursor.partida.name.charAt(0))-65][int(aristaCursor.llegada.name.charAt(0))-65]+1;
-  }
-  
-  println("/////////////////////////Start");
-  for(int i=0 ; i < adyacencias.length; i++){
-    
-    for(int j=0 ; j < adyacencias[0].length; j++){
-      print(" " + adyacencias[i][j] + " ");
+  if (numeroElementos>0) {
+    adyacencias = new int[numeroElementos][numeroElementos];  
+    for (int i=0; i<=n-1; i++) {
+      Arista aristaCursor = aristas.get(i);
+      adyacencias[int(aristaCursor.partida.name.charAt(0))-65][int(aristaCursor.llegada.name.charAt(0))-65] += 1;
     }
-    println();    
+
+    println("/////////////////////////Start");
+    for (int i=0; i < adyacencias.length; i++) {
+      for (int j=0; j < adyacencias[0].length; j++) {
+        print(" " + adyacencias[i][j] + " ");
+      }
+      println();
+    }
+    println("/////////////////////////End");
   }
-  println("/////////////////////////End");
-  
- // println(adyacencias);
-  }
-  
 }
