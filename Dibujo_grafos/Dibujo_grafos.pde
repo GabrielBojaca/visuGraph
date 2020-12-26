@@ -86,7 +86,7 @@ void mouseClicked() {
     nodoN.seleccion=!nodoN.seleccion; //Cambia el atriburo de seleecion
   }
 
-  if (!colision() && agregar && !botonAgregar.pressed() && !botonConectar.pressed()) { //Si no detecta colision en el ultimo nodo, agrega uno nuevo, comprobamos los botones para que no agrege nodos debajo de los botones
+  if (!colision() && agregar && !botonAgregar.pressed() && !botonConectar.pressed() && !botonMatriz.pressed()) { //Si no detecta colision en el ultimo nodo, agrega uno nuevo, comprobamos los botones para que no agrege nodos debajo de los botones
     numeroNodoN++;
     nombreNodoN = str(char(numeroNodoN+64));
     nodos.add(new Nodo(mouseX, mouseY, nombreNodoN));
@@ -117,6 +117,7 @@ void mouseClicked() {
     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     clipboard.setContents(data, data);
   }
+
 
 
   if (botonConectar.pressed()) {
