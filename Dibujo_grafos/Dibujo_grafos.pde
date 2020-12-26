@@ -49,7 +49,7 @@ void draw() {
   consola.refresh();
   botonAgregar.display();
   botonConectar.display();
-  
+  obtenerMatrizAdyacencia();
  // displayTodasDistancias();
 
 }
@@ -236,3 +236,31 @@ void flecha(float x1, float y1, float x2, float y2, float offset) {
   popMatrix();    //Retomamos la rotacion
   pop(); //Retomamos los estados
 } 
+
+void obtenerMatrizAdyacencia(){
+  int n = aristas.size();
+  int numeroElementos = numeroNodoN -1; //Todos los nodos excepto el ultimo
+  int[][] adyacencias;
+  if(numeroElementos>0){
+  adyacencias = new int[numeroElementos][numeroElementos];  
+  for(int i=0; i<=n-1; i++){
+    Arista aristaCursor = aristas.get(i);
+   // println(int(aristaCursor.partida.name.charAt(0)) + " " + int(aristaCursor.llegada.name.charAt(0)));
+     adyacencias[int(aristaCursor.partida.name.charAt(0))-65][int(aristaCursor.llegada.name.charAt(0))-65] += 1;
+  //   adyacencias[int(aristaCursor.partida.name.charAt(0))-65][int(aristaCursor.llegada.name.charAt(0))-65] = adyacencias[int(aristaCursor.partida.name.charAt(0))-65][int(aristaCursor.llegada.name.charAt(0))-65]+1;
+  }
+  
+  println("/////////////////////////Start");
+  for(int i=0 ; i < adyacencias.length; i++){
+    
+    for(int j=0 ; j < adyacencias[0].length; j++){
+      print(" " + adyacencias[i][j] + " ");
+    }
+    println();    
+  }
+  println("/////////////////////////End");
+  
+ // println(adyacencias);
+  }
+  
+}
